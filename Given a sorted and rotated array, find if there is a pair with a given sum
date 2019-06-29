@@ -1,0 +1,49 @@
+/*
+We can extend this solution for rotated array as well. The idea is to first find the largest element in array which is the pivot point also and the element just after largest is the smallest element. 
+Once we have indexes largest and smallest elements, we use similar meet in middle algorithm (as discussed here in method 1) to find if there is a pair.
+The only thing new here is indexes are incremented and decremented in rotational manner using modular arithmetic.
+*/
+
+
+
+#include <iostream>
+
+using namespace std;
+
+#include <iostream>
+
+using namespace std;
+bool pairInSortedRotatated(int arr[],int n,int x)
+{
+    int l,r,i;
+    for( i=0;i<n-1;i++)
+      if(arr[i]>arr[i+1])
+         break;
+         
+    l=(i+1)%n;  // l is now index of smallest element 
+    r=i;    // r is now index of largest element 
+    // Keep moving either l or r till they meet 
+    while(l!=r)
+    {
+        if(arr[l]+arr[r]==x) .  // If we find a pair with sum x, we return true 
+          return true;
+        // If current pair sum is less, move to the higher sum  
+         if(arr[l]+arr[r]<x)
+           l=(l+1)%n;
+          else .          // Move to the lower sum side 
+           r=(n+r-1)%n;
+    }
+    return false;
+  
+}
+int main()
+{
+    int arr[] = {11, 15, 6, 8, 9, 10}; 
+    int sum = 16; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    if(pairInSortedRotatated(arr,n,sum))
+    cout<<"Array has two elements with sum 16";
+    else
+    cout<<"Array doesnt have two elements with sum 16";
+    return 0;
+}
