@@ -1,0 +1,44 @@
+#include <iostream>
+#include<algorithm>
+#define mod 1000000007
+using namespace std;
+long long int findSum(int arr[],int n){
+    long long int sum=0;
+    sort(arr,arr+n);
+    int i=0;
+    while(i<n && arr[i]<0){
+        if(i!=n-1&&arr[i+1]<=0){
+            sum=(sum+(arr[i]*arr[i+1])%mod)%mod;
+        }
+        else{
+            break;
+        }
+        i+=2;
+    }
+    int j=n-1;
+    while(j>=0 && arr[j]>0){
+        if(j!=0&&arr[j-1]>0){
+            sum=(sum+(arr[j]*arr[j-1])%mod)%mod;
+        }
+        else{
+            break;
+        }
+        j-=2;
+    }
+    if(j>i)
+    {
+        sum=(sum+(arr[i]*arr[j])%mod)%mod;
+    }
+    else if(j==i){
+        sum=(sum+arr[i])%mod;
+    }
+    return sum;
+}
+
+int main() 
+{ 
+    int arr[] = { -1, 9, 4, 5, -4, 7 }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+    cout << findSum(arr, n); 
+    return 0; 
+}
